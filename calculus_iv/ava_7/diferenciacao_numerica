@@ -1,0 +1,99 @@
+import math
+
+
+def isnumber(string):
+    """
+    This function should be used instead of isnumeric() one, because this standard function does not consider '.' as
+    numeric. That is why isnumber() is useful when you need to analyse float numbers.
+
+    :param string: The user should put a string type variable or value here to be analysed
+    :return: Return True if it is a int/float type number, False if it is not
+    """
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False
+
+
+def diferenciacao(a=0, h=10**(-10), f=lambda x: x, choice=0):
+    """
+    Calcula uma aproximação de f'(x0) por um dos métodos numéricos:
+    - diferenças atrasadas
+    - diferenças avançadas
+    - diferenças centradas
+    Podendo esta última ser calculada tanto para a primeira, quanto para a segunda derivada.
+     :param a: Valor de x0, o qual a derivada será calculada
+    :param h: x - x0
+    :param f: função f em que a derivada deve ser calculada
+    :param choice: Escolha de qual método será utilizado
+    0: primeira derivada por diferenças atrasadas
+    1: primeira derivada por diferenças avançadas
+    2: primiera derivada por diferenças centradas
+    3: segunda derivada por diferenças centradas
+    :return: A aproximação de f'(x0) ou f''(x0)
+    """
+    # Em primeiro lugar, temos definido que tanto a, quanto h, devem ser numéricos. Por isso, temos a função isnumber(),
+    # a qual retorna True caso o valor seja numérico e False caso não.
+    if not isnumber(a) and not isnumber(h):
+        return ValueError('os valores de a e h devem ser numéricos.')
+
+    # Sendo f uma função definida pelo usuário, este deve também especificar o método polo qual ele quer calcular a
+    # aproximação da derivada:
+
+    if choice == 0:  # Caso o parâmetro choice seja igual a 0, o programa calculará a aproximação de derivadas pelo
+        # Método de Diferenças Atrasadas
+
+        derivada = (f(a) - f(a - h)) / h
+
+        return derivada
+
+    elif choice == 1:  # Caso o parâmetro choice seja igual a 1, o programa calculará a aproximação de derivadas pelo
+        # Método de Diferenças Avançadas
+
+        derivada = (f(a + h) - f(a)) / h  # Assim, a derivada será dada por esta fórmula
+
+        return derivada
+
+    elif choice == 2:  # Caso o parâmetro choice seja igual a 0, o programa calculará a aproximação de derivadas pelo
+        # Método de Diferenças Centradas
+
+        derivada = (f(a + h) - f(a - h)) / (2 * h)
+
+        return derivada
+
+    elif choice == 3:  # Caso o parâmetro choice seja igual a 0, o programa calculará a aproximação de derivadas pelo
+        # Método de Diferenças Atrasadas
+
+        derivada = (f(a + h) - (2 * f(a)) + f(a - h)) / (h ** 2)
+
+        return derivada
+
+    else:
+        raise ValueError('escolha uma opção válida.')
+
+
+a = 1
+f1 = (lambda x1: 3*x1 + 5)
+f2 = (lambda x2: 7*(x2**2) + 3*x2 + 5)
+f3 = (lambda x3: -8*(x3**3) + 7*(x3**2) + 3*x3 + 5)
+f4 = (lambda x4: (x4 ** 4) - 8*(x4**3) + 7*(x4**2) + 3*x4 + 5)
+f5 = (lambda x5: 2*(x5 ** 5) + (x5 ** 4) - 8*(x5**3) + 7*(x5**2) + 3*x5 + 5)
+f6 = (lambda x6: 2*math.cos(x6) + 4*math.sin(2*x6) + 7)
+choice = [0, 1, 2, 3]
+n = [10**(-1), 10**(-2), 10**(-3), 10**(-4), 10**(-8), 10**(-12), 10**(-16), 10**(-20), 10**(-30)]
+metodo = ['DIFERENÇAS ATRASADAS', 'DIFERENÇAS AVANÇADAS', 'DIFERENÇAS CENTRADAS (PRIMEIRA DERIVADA)',
+          'DIFEREÇAS CENTRADAS (SEGUNDA DERIVADA)']
+
+for c in choice:
+    print(f'\033[0;0mUTILIZANDO O MÉTODO DE {metodo[c]}:')
+    print(f'\033[1;31m{diferenciacao(a, n[0], f6, c)}')
+    print(f'\033[1;32m{diferenciacao(a, n[1], f6, c)}')
+    print(f'\033[1;33m{diferenciacao(a, n[2], f6, c)}')
+    print(f'\033[1;34m{diferenciacao(a, n[3], f6, c)}')
+    print(f'\033[1;35m{diferenciacao(a, n[4], f6, c)}')
+    print(f'\033[1;36m{diferenciacao(a, n[5], f6, c)}')
+    print(f'\033[1;92m{diferenciacao(a, n[6], f6, c)}')
+    print(f'\033[1;93m{diferenciacao(a, n[7], f6, c)}')
+    print(f'\033[1;94m{diferenciacao(a, n[8], f6, c)}')
+    print()
