@@ -1,6 +1,6 @@
-import { RentRepo } from "../../rent-repo";
+import { RentRepo } from "../../ports/rent-repo";
 import { Rent } from "../../rent";
-import prisma from './db'
+import prisma from "./db"
 
 export class PrismaRentRepo implements RentRepo {
     async add(rent: Rent): Promise<string> {
