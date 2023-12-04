@@ -47,9 +47,22 @@ server.post('/api/users', async (req, res) => {
     }
 })
 
+server.post('/api/bikes', async (req, res) => {
+    try {
+        const id = await app.registerBike(req.body)
+        res.status(201).json({ id })
+    } catch (e) {
+        res.status(500).json({
+            message: 'Internal server error.'
+        })        
+    }
+
+})
+
 const port = 3000
 server.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })
+
 
 export default server

@@ -1,6 +1,6 @@
 import { User } from './../src/user';
 import request from 'supertest';
-import { server } from '../src/server';
+import server from '../src/server';
 import prisma from '../src/external/database/db';
 
 describe('Register User', () => {
@@ -14,9 +14,10 @@ describe('Register User', () => {
 
     it('registers a user with valid data', async () => {
         await request(server)
-            .post('/api/users')import request from 'supertest'
-            import server from '../src/server'
-            import prisma from '../src/external/database/db'
+            .post('/api/users')
+                import request from 'supertest'
+                import server from '../src/server'
+                import prisma from '../src/external/database/db'
             
             describe('Register user route', () => {
                 beforeEach(async () => {
